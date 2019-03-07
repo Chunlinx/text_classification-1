@@ -121,6 +121,7 @@ def main():
             out_str = u'%d\t%s\n' % (topic_ser, text)
             outfile.write(out_str.encode('utf-8', 'ignore'))
     print("program finished")
+    return 0
 
 
 if __name__ == '__main__':
