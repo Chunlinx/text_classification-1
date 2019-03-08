@@ -10,11 +10,10 @@ import re
 import codecs
 
 NotionalTokenizer = JClass("com.hankcs.hanlp.tokenizer.NotionalTokenizer")
-
 # 以文本在文本集中的顺序列出的文本向量矩阵（用300维向量表示）
 text_vec = None
 # 以文本在文本集中的顺序列出的话题序号列表
-topic_serial = []
+topic_serial = None
 # 话题数量
 topic_cnt = 0
 
@@ -78,7 +77,7 @@ def single_pass(sen_vec, sim_threshold):
         # 话题数量+1
         topic_cnt += 1
         # 分配话题编号，话题编号从1开始
-        topic_serial.append(topic_cnt)
+        topic_serial = [topic_cnt]
     else:  # 第2次及之后送入的文本
         # 文本逐一与已有的话题中的各文本进行相似度计算
         sim_vec = np.dot(sen_vec, text_vec.T)
@@ -104,7 +103,7 @@ def single_pass(sen_vec, sim_threshold):
 def main():
     # 加载数据
     data_all = load_files(container_path=r'data/news', categories=u'Sports',
-                          encoding=u'gbk', decode_error=u'ignore')
+                            encoding=u'gbk', decode_error=u'ignore')
     # 获取文本数据集
     data = data_all.data
     # 预处理后的文本数据集
@@ -121,7 +120,7 @@ def main():
             out_str = u'%d\t%s\n' % (topic_ser, text)
             outfile.write(out_str.encode('utf-8', 'ignore'))
     print("program finished")
-    return 0
+    # 在mac下释放向量内存时间较长，可以直接ctrl+c强制退出程序
 
 
 if __name__ == '__main__':
