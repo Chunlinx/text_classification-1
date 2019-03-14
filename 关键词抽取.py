@@ -47,7 +47,8 @@ with codecs.open('data/res_single_pass.txt', 'rb', 'utf-8', 'ignore') as infile:
             text_dict.setdefault(cluster_ser, [])
             text_dict[cluster_ser].append(text)
 
-outfile = open('cluster_keywords.txt', 'wb')
+outfile = open('data/cluster_keywords.txt', 'wb')
+outfile2 = open('data/cluster_keywords2.txt', 'wb')
 
 for cluster_ser, text_li in text_dict.items():
     print("cluster", cluster_ser, "text cnt=", len(text_li))
@@ -84,5 +85,8 @@ for cluster_ser, text_li in text_dict.items():
     out_str = u'%s\t%s\n' %(cluster_ser, u' '.join([u'%s:%.3f' % (w[0],w[1]) for w in word_li[:10]]))
     outfile.write(out_str.encode('utf-8', 'ignore'))
 
-outfile.close()
+    out_str = u'%s\t%s\n' %(cluster_ser, u' '.join([u'%s:%.3f' % (w[0],w[1]) for w in word_li[-10:]]))
+    outfile2.write(out_str.encode('utf-8', 'ignore'))
 
+outfile.close()
+outfile2.close()
