@@ -36,7 +36,7 @@ print("="*50)
 mul_nb = MultinomialNB()
 # 训练模型
 mul_nb.fit(X_train, y_train)
-# 打印测试集上的分类报告
-print("分类报告\n", classification_report(mul_nb.predict(X_test), y_test))
 # 打印测试集上的混淆矩阵
-print("混淆矩阵\n", confusion_matrix(mul_nb.predict(X_test), y_test))
+print("混淆矩阵\n", confusion_matrix(y_true=y_test, y_pred=mul_nb.predict(X_test)))
+# 打印测试集上的分类报告
+print("分类报告\n", classification_report(y_true=y_test, y_pred=mul_nb.predict(X_test)))
