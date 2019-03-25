@@ -75,10 +75,10 @@ def modelbuilding(sms_data, sms_labels):
     print('\n 分类报告')
     print(classification_report(y_test, y_nb_predicted))
 
-    # 输出正负类的前10重要特征
-    print("正负类前10重要特征")
-    coefs = clf.coef_
-    intercept = clf.intercept_
+    # 输出第0个类别上的top10(低频,高频)特征对
+    print("输出第0个类别上的top10(低频,高频)特征对")
+    # coefs = clf.coef_
+    # intercept = clf.intercept_
     feature_names = vectorizer.get_feature_names()
     coefs_with_fns = sorted(zip(clf.coef_[0], feature_names))
     n = 10
